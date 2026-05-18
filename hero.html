@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SALIH CK — Music Producer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    :root {
+      --bg: #080808;
+      --surface: #111;
+      --gold: #c8a96e;
+      --gold2: #e8c98a;
+      --white: #f5f5f7;
+      --gray: #888;
+      --card: #161616;
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 999;
+      padding: 18px 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(8, 8, 8, 0.7);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05)
+    }
+
+    .nav-logo {
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none
+    }
+
+    .nav-links a {
+      color: rgba(245, 245, 247, 0.7);
+      text-decoration: none;
+      font-size: .85rem;
+      letter-spacing: .5px;
+      transition: color .3s
+    }
+
+    .nav-links a:hover {
+      color: var(--gold)
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('img/banner/ck11.png') center/cover no-repeat;
+      transform: scale(1.1)
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(8, 8, 8, 0.3) 0%, rgba(8, 8, 8, 0.6) 50%, rgba(8, 8, 8, 1) 100%)
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      padding: 0 20px
+    }
+
+    .hero-tag {
+      font-size: .75rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+      opacity: 0;
+      transform: translateY(30px)
+    }
+
+    .hero-title {
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -2px;
+      opacity: 0;
+      transform: translateY(40px)
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      color: rgba(245, 245, 247, 0.5);
+      margin-top: 24px;
+      font-weight: 300;
+      letter-spacing: 1px;
+      opacity: 0;
+      transform: translateY(30px)
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(180deg, transparent, var(--gold));
+      animation: scrollPulse 2s ease-in-out infinite
+    }
+
+    .scroll-hint span {
+      font-size: .65rem;
+      letter-spacing: 3px;
+      color: var(--gray);
+      text-transform: uppercase
+    }
+
+    @keyframes scrollPulse {
+
+      0%,
+      100% {
+        opacity: .3;
+        transform: scaleY(1)
+      }
+
+      50% {
+        opacity: 1;
+        transform: scaleY(1.2)
+      }
+    }
+
+    /* MARQUEE */
+    .marquee-section {
+      padding: 40px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      overflow: hidden
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 60px;
+      white-space: nowrap;
+      animation: marquee 20s linear infinite
+    }
+
+    .marquee-track span {
+      font-size: .8rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gray)
+    }
+
+    .marquee-track .dot {
+      color: var(--gold)
+    }
+
+    @keyframes marquee {
+      from {
+        transform: translateX(0)
+      }
+
+      to {
+        transform: translateX(-50%)
+      }
+    }
+
+    /* ABOUT REVEAL */
+    .about-section {
+      padding: 140px 5%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto
+    }
+
+    .about-img-wrap {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden
+    }
+
+    .about-img-wrap img {
+      width: 100%;
+      height: 600px;
+      object-fit: cover;
+      display: block;
+      transform: scale(1.05)
+    }
+
+    .about-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(200, 169, 110, 0.15), transparent)
+    }
+
+    .about-eyebrow {
+      font-size: .7rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: translateX(-40px)
+    }
+
+    .about-heading {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      opacity: 0;
+      transform: translateX(-40px)
+    }
+
+    .about-body {
+      color: rgba(245, 245, 247, 0.5);
+      line-height: 1.9;
+      font-weight: 300;
+      margin-top: 24px;
+      font-size: 1.05rem;
+      opacity: 0;
+      transform: translateX(-40px)
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px
+    }
+
+    .stat {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 24px;
+      background: var(--card);
+      opacity: 0;
+      transform: translateY(30px)
+    }
+
+    .stat-num {
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent
+    }
+
+    .stat-label {
+      font-size: .75rem;
+      letter-spacing: 2px;
+      color: var(--gray);
+      text-transform: uppercase;
+      margin-top: 4px
+    }
+
+    /* SERVICES */
+    .services-section {
+      padding: 140px 5%;
+      max-width: 1200px;
+      margin: 0 auto
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 80px
+    }
+
+    .section-eyebrow {
+      font-size: .7rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      opacity: 0;
+      transform: translateY(20px)
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+      opacity: 0;
+      transform: translateY(30px)
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px
+    }
+
+    .service-card {
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 24px;
+      padding: 40px 32px;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: border-color .3s, transform .3s
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity .3s
+    }
+
+    .service-card:hover {
+      border-color: rgba(200, 169, 110, 0.3);
+      transform: translateY(-6px) !important
+    }
+
+    .service-card:hover::before {
+      opacity: 1
+    }
+
+    .service-icon {
+      font-size: 2.5rem;
+      margin-bottom: 24px
+    }
+
+    .service-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 12px
+    }
+
+    .service-desc {
+      color: var(--gray);
+      font-size: .9rem;
+      line-height: 1.7
+    }
+
+    .service-price-tag {
+      display: inline-block;
+      margin-top: 20px;
+      font-size: .75rem;
+      letter-spacing: 2px;
+      color: var(--gold);
+      text-transform: uppercase;
+      border: 1px solid rgba(200, 169, 110, 0.3);
+      padding: 6px 14px;
+      border-radius: 100px
+    }
+
+    /* PRICING */
+    .pricing-section {
+      padding: 140px 5%;
+      max-width: 1200px;
+      margin: 0 auto
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 80px
+    }
+
+    .pricing-card {
+      border-radius: 28px;
+      padding: 48px 36px;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(60px)
+    }
+
+    .pricing-card.basic {
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.07)
+    }
+
+    .pricing-card.pro {
+      background: linear-gradient(135deg, #1a1500, #120f00);
+      border: 1px solid rgba(200, 169, 110, 0.4)
+    }
+
+    .pricing-card.elite {
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.07)
+    }
+
+    .popular-badge {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: .65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      color: #080808;
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-weight: 700
+    }
+
+    .plan-name {
+      font-size: .75rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 20px
+    }
+
+    .plan-price {
+      font-size: 3.5rem;
+      font-weight: 900;
+      letter-spacing: -2px;
+      line-height: 1
+    }
+
+    .plan-price span {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--gray);
+      letter-spacing: 0
+    }
+
+    .plan-price.gold {
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent
+    }
+
+    .plan-desc {
+      color: var(--gray);
+      font-size: .85rem;
+      margin-top: 12px;
+      line-height: 1.6
+    }
+
+    .plan-divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.07);
+      margin: 28px 0
+    }
+
+    .plan-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px
+    }
+
+    .plan-features li {
+      font-size: .9rem;
+      color: rgba(245, 245, 247, 0.7);
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .plan-features li::before {
+      content: '✓';
+      color: var(--gold);
+      font-weight: 700;
+      flex-shrink: 0
+    }
+
+    .plan-cta {
+      display: block;
+      margin-top: 36px;
+      text-align: center;
+      padding: 14px;
+      border-radius: 100px;
+      font-size: .85rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: all .3s
+    }
+
+    .cta-outline {
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--white)
+    }
+
+    .cta-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold)
+    }
+
+    .cta-gold {
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      color: #080808
+    }
+
+    .cta-gold:hover {
+      opacity: .85;
+      transform: scale(1.02)
+    }
+
+    /* GALLERY STRIP */
+    .gallery-section {
+      padding: 120px 0;
+      overflow: hidden
+    }
+
+    .gallery-label {
+      text-align: center;
+      margin-bottom: 60px
+    }
+
+    .gallery-label h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+      opacity: 0;
+      transform: translateY(30px)
+    }
+
+    .gallery-strip {
+      display: flex;
+      gap: 20px;
+      padding: 0 5%
+    }
+
+    .gallery-strip .g-item {
+      flex: 0 0 380px;
+      height: 280px;
+      border-radius: 20px;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(60px)
+    }
+
+    .gallery-strip .g-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .6s
+    }
+
+    .gallery-strip .g-item:hover img {
+      transform: scale(1.06)
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 80px 5% 40px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      text-align: center
+    }
+
+    .footer-logo {
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: 3px;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 24px
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      list-style: none;
+      margin-bottom: 40px
+    }
+
+    .footer-links a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: .85rem;
+      transition: color .3s
+    }
+
+    .footer-links a:hover {
+      color: var(--gold)
+    }
+
+    .footer-copy {
+      color: var(--gray);
+      font-size: .8rem
+    }
+
+    @media(max-width:900px) {
+      .about-section {
+        grid-template-columns: 1fr
+      }
+
+      .services-grid,
+      .pricing-grid {
+        grid-template-columns: 1fr
+      }
+
+      .stat-row {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <div class="nav-logo">PROD.SALH</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="track.html">Covers</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-tag" id="heroTag">Music Producer & Cover Artist</p>
+      <h1 class="hero-title" id="heroTitle">SALIH <span>CK</span></h1>
+      <p class="hero-sub" id="heroSub">Crafting soulful covers & original productions<br>from the heart of Kerala</p>
+    </div>
+    <div class="scroll-hint" id="scrollHint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-section">
+    <div class="marquee-track">
+      <span>Music Producer</span><span class="dot">✦</span>
+      <span>Cover Artist</span><span class="dot">✦</span>
+      <span>Kerala</span><span class="dot">✦</span>
+      <span>YouTube</span><span class="dot">✦</span>
+      <span>Instagram</span><span class="dot">✦</span>
+      <span>Humnava Mere</span><span class="dot">✦</span>
+      <span>Kanave Kanave</span><span class="dot">✦</span>
+      <span>Dhadak</span><span class="dot">✦</span>
+      <!-- dupe for seamless loop -->
+      <span>Music Producer</span><span class="dot">✦</span>
+      <span>Cover Artist</span><span class="dot">✦</span>
+      <span>Kerala</span><span class="dot">✦</span>
+      <span>YouTube</span><span class="dot">✦</span>
+      <span>Instagram</span><span class="dot">✦</span>
+      <span>Humnava Mere</span><span class="dot">✦</span>
+      <span>Kanave Kanave</span><span class="dot">✦</span>
+      <span>Dhadak</span><span class="dot">✦</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="about-section" id="about">
+    <div class="about-img-wrap reveal-img">
+      <img src="img/about/ck.about.png" alt="Salih CK">
+    </div>
+    <div>
+      <p class="about-eyebrow reveal-left">The Artist</p>
+      <h2 class="about-heading reveal-left" style="transition-delay:.1s">Turning emotions<br>into <span
+          style="color:var(--gold)">music.</span></h2>
+      <p class="about-body reveal-left" style="transition-delay:.2s">A music cover artist who brings new life to beloved
+        songs, transforming them with raw emotion and a unique voice rooted in Kerala's rich musical culture. Every
+        cover is a story retold.</p>
+      <div class="stat-row">
+        <div class="stat reveal-stat">
+          <div class="stat-num">50+</div>
+          <div class="stat-label">Covers</div>
+        </div>
+        <div class="stat reveal-stat" style="transition-delay:.1s">
+          <div class="stat-num">10K+</div>
+          <div class="stat-label">Listeners</div>
+        </div>
+        <div class="stat reveal-stat" style="transition-delay:.2s">
+          <div class="stat-num">2019</div>
+          <div class="stat-label">Since</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services-section" id="services">
+    <div class="section-header">
+      <p class="section-eyebrow reveal-up">What I Offer</p>
+      <h2 class="section-title reveal-up" style="transition-delay:.1s">Services & Expertise</h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal-card">
+        <div class="service-icon">🎙️</div>
+        <div class="service-name">Vocal Covers</div>
+        <p class="service-desc">Professional vocal covers of trending Bollywood, Tamil & Malayalam songs, recorded with
+          studio-grade clarity.</p>
+        <span class="service-price-tag">Starting ₹999</span>
+      </div>
+      <div class="service-card reveal-card" style="transition-delay:.1s">
+        <div class="service-icon">🎵</div>
+        <div class="service-name">Music Production</div>
+        <p class="service-desc">Full beat production and music arrangement tailored to your style — from lo-fi to
+          cinematic soundscapes.</p>
+        <span class="service-price-tag">Starting ₹2,499</span>
+      </div>
+      <div class="service-card reveal-card" style="transition-delay:.2s">
+        <div class="service-icon">🎬</div>
+        <div class="service-name">Video Reels</div>
+        <p class="service-desc">Short-form music reel production for Instagram & YouTube Shorts — optimised for maximum
+          reach and engagement.</p>
+        <span class="service-price-tag">Starting ₹1,499</span>
+      </div>
+      <div class="service-card reveal-card" style="transition-delay:.3s">
+        <div class="service-icon">🎚️</div>
+        <div class="service-name">Mixing & Mastering</div>
+        <p class="service-desc">Crisp, radio-ready mixing and mastering that makes your track sound professional on any
+          device.</p>
+        <span class="service-price-tag">Starting ₹1,999</span>
+      </div>
+      <div class="service-card reveal-card" style="transition-delay:.4s">
+        <div class="service-icon">🎤</div>
+        <div class="service-name">Live Sessions</div>
+        <p class="service-desc">Live acoustic and virtual performance sessions for events, weddings, and private
+          functions in Kerala.</p>
+        <span class="service-price-tag">Starting ₹4,999</span>
+      </div>
+      <div class="service-card reveal-card" style="transition-delay:.5s">
+        <div class="service-icon">📲</div>
+        <div class="service-name">Social Media Pack</div>
+        <p class="service-desc">Complete content pack — covers, reels, thumbnails and captions — for a month of
+          consistent artist presence.</p>
+        <span class="service-price-tag">Starting ₹3,999</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing-section" id="pricing">
+    <div class="section-header">
+      <p class="section-eyebrow reveal-up">Transparent Pricing</p>
+      <h2 class="section-title reveal-up" style="transition-delay:.1s">Choose Your Plan</h2>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card basic reveal-price">
+        <p class="plan-name">Starter</p>
+        <div class="plan-price">₹999<span>/cover</span></div>
+        <p class="plan-desc">Perfect for getting a single cover song produced quickly.</p>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li>1 vocal cover track</li>
+          <li>Basic mixing</li>
+          <li>MP3 delivery</li>
+          <li>3-day turnaround</li>
+          <li>1 revision</li>
+        </ul>
+        <a href="contact.html" class="plan-cta cta-outline">Get Started</a>
+      </div>
+      <div class="pricing-card pro reveal-price" style="transition-delay:.15s">
+        <span class="popular-badge">Most Popular</span>
+        <p class="plan-name">Professional</p>
+        <div class="plan-price gold">₹3,499<span>/project</span></div>
+        <p class="plan-desc">Complete production package for serious artists and creators.</p>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li>Up to 3 cover tracks</li>
+          <li>Professional mixing & mastering</li>
+          <li>WAV + MP3 delivery</li>
+          <li>Custom beat arrangement</li>
+          <li>Instagram reel edit</li>
+          <li>3 revisions</li>
+          <li>5-day turnaround</li>
+        </ul>
+        <a href="contact.html" class="plan-cta cta-gold">Book Now</a>
+      </div>
+      <div class="pricing-card elite reveal-price" style="transition-delay:.3s">
+        <p class="plan-name">Elite</p>
+        <div class="plan-price">₹7,999<span>/month</span></div>
+        <p class="plan-desc">Full monthly retainer for brands, events and content creators.</p>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li>Unlimited covers</li>
+          <li>Full music production</li>
+          <li>Mixing, mastering & stems</li>
+          <li>4 reels per month</li>
+          <li>Live session (1/month)</li>
+          <li>Social media pack</li>
+          <li>Priority support</li>
+          <li>Unlimited revisions</li>
+        </ul>
+        <a href="contact.html" class="plan-cta cta-outline">Contact Me</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery-section" id="gallery">
+    <div class="gallery-label">
+      <h2 class="reveal-up">Work Station</h2>
+    </div>
+    <div class="gallery-strip">
+      <div class="g-item reveal-g"><img src="img/gallery/wrk1.png" alt="Studio 1"></div>
+      <div class="g-item reveal-g" style="transition-delay:.1s"><img src="img/gallery/wrk2.png" alt="Studio 2"></div>
+      <div class="g-item reveal-g" style="transition-delay:.2s"><img src="img/gallery/wrk 3.png" alt="Studio 3"></div>
+      <div class="g-item reveal-g" style="transition-delay:.3s"><img src="img/gallery/wrk 4png.png" alt="Studio 4">
+      </div>
+      <div class="g-item reveal-g" style="transition-delay:.4s"><img src="img/gallery/wrk5.png" alt="Studio 5"></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">PROD.SALH</div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="track.html">Covers</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="https://youtube.com/@salih-ck">YouTube</a></li>
+      <li><a href="https://www.instagram.com/prod.salh">Instagram</a></li>
+    </ul>
+    <p class="footer-copy">© 2026 SALIH CK — All rights reserved. Kerala, Malappuram.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // HERO entrance
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    tl.to('#heroTag', { opacity: 1, y: 0, duration: .9, delay: .3 })
+      .to('#heroTitle', { opacity: 1, y: 0, duration: 1 }, '-=.5')
+      .to('#heroSub', { opacity: 1, y: 0, duration: .9 }, '-=.6')
+      .to('#scrollHint', { opacity: 1, duration: .8 }, '-=.3');
+
+    // Hero parallax
+    gsap.to('#heroBg', {
+      yPercent: 25,
+      ease: 'none',
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+    });
+
+    // Helper
+    function revealOn(selector, vars) {
+      document.querySelectorAll(selector).forEach(el => {
+        gsap.to(el, Object.assign({
+          scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
+        }, vars));
+      });
+    }
+
+    revealOn('.reveal-left', { opacity: 1, x: 0, duration: .9, ease: 'power3.out' });
+    revealOn('.reveal-up', { opacity: 1, y: 0, duration: .8, ease: 'power3.out' });
+    revealOn('.reveal-card', { opacity: 1, y: 0, duration: .75, ease: 'power3.out' });
+    revealOn('.reveal-price', { opacity: 1, y: 0, duration: .8, ease: 'power3.out' });
+    revealOn('.reveal-stat', { opacity: 1, y: 0, duration: .7, ease: 'power3.out' });
+    revealOn('.reveal-g', { opacity: 1, y: 0, duration: .75, ease: 'power3.out' });
+
+    // Image reveal
+    gsap.to('.reveal-img img', {
+      scale: 1, duration: 1.2, ease: 'power3.out',
+      scrollTrigger: { trigger: '.reveal-img', start: 'top 85%', toggleActions: 'play none none none' }
+    });
+    gsap.fromTo('.reveal-img', { clipPath: 'inset(0 100% 0 0)' }, {
+      clipPath: 'inset(0 0% 0 0)', duration: 1.2, ease: 'power3.out',
+      scrollTrigger: { trigger: '.reveal-img', start: 'top 85%', toggleActions: 'play none none none' }
+    });
+  </script>
+</body>
+
+</html>

@@ -262,6 +262,32 @@
             <div class="row align-items-center justify-content-center mb-20">
                 <div class="col-xl-10">
                     <div class="row align-items-center">
+                         <div class="col-xl-9 col-md-9">
+                                    <div class="music_field">
+                                            <div class="thumb">
+                                                    <img src="img/music_man/ck track.png" alt="">
+                                                </div>
+                                                <div class="audio_name">
+                                                    <div class="name">
+                                                        <h4>Eanakke aarumillai</h4>
+                                                        <p>may 18,2026</p>
+                                                    </div>
+                                                        <audio preload="auto" controls>
+                                                                <source src="./songs/eanakke aarumillai.mp3">
+                                                            </audio>
+                                                </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-md-3">
+                                    <div class="music_btn like-area">
+                                            <button class="like-btn" data-song="humnava-mere" onclick="toggleLike(this)">
+                                                <i class="fa fa-heart"></i>
+                                                <span class="like-count">0</span>
+                                            </button>
+                                            <a href="track.html" class="boxed-btn">All track</a>
+                                    </div>
+                                </div>
+                        
                                 <div class="col-xl-9 col-md-9">
                                     <div class="music_field">
                                             <div class="thumb">
@@ -279,7 +305,11 @@
                                     </div>
                                 </div>
                                 <div class="col-xl-3 col-md-3">
-                                    <div class="music_btn">
+                                    <div class="music_btn like-area">
+                                            <button class="like-btn" data-song="humnava-mere" onclick="toggleLike(this)">
+                                                <i class="fa fa-heart"></i>
+                                                <span class="like-count">0</span>
+                                            </button>
                                             <a href="track.html" class="boxed-btn">All track</a>
                                     </div>
                                 </div>
@@ -307,7 +337,11 @@
                                     </div>
                                 </div>
                                 <div class="col-xl-3 col-md-3">
-                                    <div class="music_btn">
+                                    <div class="music_btn like-area">
+                                            <button class="like-btn" data-song="mehabooba" onclick="toggleLike(this)">
+                                                <i class="fa fa-heart"></i>
+                                                <span class="like-count">0</span>
+                                            </button>
                                             <a href="track.html" class="boxed-btn">All track</a>
                                     </div>
                                 </div>
@@ -335,7 +369,11 @@
                                     </div>
                                 </div>
                                 <div class="col-xl-3 col-md-3">
-                                    <div class="music_btn">
+                                    <div class="music_btn like-area">
+                                            <button class="like-btn" data-song="oh-penne" onclick="toggleLike(this)">
+                                                <i class="fa fa-heart"></i>
+                                                <span class="like-count">0</span>
+                                            </button>
                                             <a href="track.html" class="boxed-btn">All track</a>
                                     </div>
                                 </div>
@@ -570,12 +608,43 @@
     <script src="js/main.js"></script>
     
 		<script>
-                $(function() {
-                    $('audio').audioPlayer({
+            $(function() {
+                $('audio').audioPlayer({
 
-                    });
                 });
-            </script>
+            });
+
+            // --- Like Button Logic ---
+            function toggleLike(btn) {
+                const song = btn.getAttribute('data-song');
+                const countEl = btn.querySelector('.like-count');
+                let liked = localStorage.getItem('liked_' + song) === 'true';
+                let count = parseInt(localStorage.getItem('count_' + song) || '0');
+
+                if (liked) {
+                    liked = false;
+                    count = Math.max(0, count - 1);
+                    btn.classList.remove('liked');
+                } else {
+                    liked = true;
+                    count++;
+                    btn.classList.add('liked');
+                }
+
+                localStorage.setItem('liked_' + song, liked);
+                localStorage.setItem('count_' + song, count);
+                countEl.textContent = count;
+            }
+
+            // Restore like states on page load
+            document.querySelectorAll('.like-btn').forEach(function(btn) {
+                const song = btn.getAttribute('data-song');
+                const liked = localStorage.getItem('liked_' + song) === 'true';
+                const count = parseInt(localStorage.getItem('count_' + song) || '0');
+                btn.querySelector('.like-count').textContent = count;
+                if (liked) btn.classList.add('liked');
+            });
+        </script>
 </body>
 
 </html>
